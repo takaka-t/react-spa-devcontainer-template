@@ -1,0 +1,51 @@
+{
+  "name": "${localWorkspaceFolderBasename}",
+  "dockerComposeFile": "./docker/docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // editor
+        "files.eol": "\n",
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        // prettier
+        "prettier.printWidth": 120,
+        // typescript
+        "js/ts.tsdk.path": "node_modules/typescript/lib",
+        // launch
+        "launch": {
+          "version": "0.2.0",
+          "configurations": [
+            {
+              "name": "Vite in Chrome",
+              "type": "chrome",
+              "request": "launch",
+              "url": "http://127.0.0.1:${input:viteHostPort}",
+              "webRoot": "${workspaceFolder}"
+            }
+          ],
+          "inputs": [
+            {
+              "id": "viteHostPort",
+              "type": "promptString",
+              "description": "VSCodeのPORTSタブで5173の転送先ポートを確認して入力してください。",
+              "default": "5173"
+            }
+          ]
+        }
+      },
+      "extensions": [
+        // language ja
+        "MS-CEINTL.vscode-language-pack-ja",
+        // formatter
+        "esbenp.prettier-vscode",
+        // git
+        "mhutchie.git-graph",
+        "donjayamanne.githistory",
+        "eamodio.gitlens"
+      ]
+    }
+  }
+}
