@@ -5,9 +5,6 @@ React で SPA を構築する際のプロジェクトテンプレート。
 - memo
   - docker-compose.yml の name は各プロジェクトに合わせて変更する。
   - VSCode + DevContainers での開発のみを想定するため docker-compose.yml には ports を記載しない。VSCode いい感じに ports 転送してくれる。
-- todo
-  - mui や react-router 初期実装を行う。
-  - build の手順を記載する。
 
 ## レイアウト実装方針
 
@@ -18,7 +15,7 @@ React で SPA を構築する際のプロジェクトテンプレート。
 
 ## setup project
 
-<!-- ここにvscodeでdevcontainerでコンテナで開く旨を記載する -->
+VS Code でこのフォルダを開き、Dev Containers の `Reopen in Container` でコンテナに入る。
 
 ```bash
 npm install
@@ -43,7 +40,14 @@ npm run dev
 ## build
 
 ```bash
+npm run build
+```
 
+ビルド成果物は `dist/` に出力される。
+ローカルで成果物を確認する場合は以下を実行する。
+
+```bash
+npm run preview
 ```
 
 ## creat project
