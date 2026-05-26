@@ -9,29 +9,12 @@ React で SPA を構築する際のプロジェクトテンプレート。
   - mui や react-router 初期実装を行う。
   - build の手順を記載する。
 
-## creat project
+## レイアウト実装方針
 
-```bash
-# https://ja.react.dev/learn
-
-# https://ja.vite.dev/guide/
-# Ignore files and continue
-npm create vite@9.0.7 . -- --template react-ts
-
-# https://reactrouter.com/home
-npm install react-router
-
-# https://mui.com/material-ui/getting-started/installation/
-npm install @mui/material @emotion/react @emotion/styled @mui/icons-material @fontsource/roboto
-```
-
-デバッグのために /vite.config.ts の defineConfig に以下を追記。
-
-```ts
-server: {
-  host: "0.0.0.0",
-},
-```
+レイアウトは `Box` / `Stack` を中心に、Flexboxベースで実装する。  
+`Grid` はカラム配置や複雑な2次元配置が必要な場合に使用する。  
+`sx` はCSS標準に近い指定を中心に利用し、複雑なスタイルはCSSまたは共通コンポーネントに切り出す。  
+一覧表示は `Table` / `DataGrid` を使用する。
 
 ## setup project
 
@@ -57,10 +40,34 @@ npm run dev
 5. 入力欄が表示されたら、転送先ホストポートを入力する。
    通常は `5173` のままでよい。
 
-### build
+## build
 
 ```bash
 
+```
+
+## creat project
+
+```bash
+# https://ja.react.dev/learn
+
+# https://ja.vite.dev/guide/
+# Ignore files and continue
+npm create vite@9.0.7 . -- --template react-ts
+
+# https://reactrouter.com/home
+npm install react-router
+
+# https://mui.com/material-ui/getting-started/installation/
+npm install @mui/material @emotion/react @emotion/styled @mui/icons-material @fontsource/roboto
+```
+
+デバッグのために /vite.config.ts の defineConfig に以下を追記。
+
+```ts
+server: {
+  host: "0.0.0.0",
+},
 ```
 
 # React + TypeScript + Vite
