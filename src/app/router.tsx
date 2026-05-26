@@ -7,6 +7,8 @@ import { CustomerListPage } from '../routes/customers/CustomerListPage.tsx'
 import { DashboardPage } from '../routes/dashboard/DashboardPage.tsx'
 import { NotFoundPage } from '../routes/NotFoundPage.tsx'
 import { SettingsPage } from '../routes/settings/SettingsPage.tsx'
+import { VoucherSearchPage } from '../routes/vouchers/VoucherSearchPage.tsx'
+import { vouchersLoader } from '../routes/vouchers/vouchers.loader.ts'
 
 // React Router のルート定義は、アプリ全体の画面構造を表す「地図」です。
 // 画面が増えたときも、このファイルを見ることで URL、レイアウト、データ取得の関係を追いやすくなります。
@@ -30,6 +32,12 @@ export const router = createBrowserRouter([
         path: 'customers/:customerId',
         loader: customerDetailLoader,
         element: <CustomerDetailPage />,
+        errorElement: <RouteErrorPage />,
+      },
+      {
+        path: 'vouchers',
+        loader: vouchersLoader,
+        element: <VoucherSearchPage />,
         errorElement: <RouteErrorPage />,
       },
       {

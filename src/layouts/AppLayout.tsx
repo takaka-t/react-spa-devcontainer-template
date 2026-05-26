@@ -4,6 +4,7 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined'
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined'
+import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
@@ -34,6 +35,11 @@ const navItems: NavItem[] = [
     label: '顧客一覧',
     to: '/customers',
     icon: <PeopleAltOutlinedIcon fontSize="small" />,
+  },
+  {
+    label: '伝票検索',
+    to: '/vouchers',
+    icon: <ReceiptLongOutlinedIcon fontSize="small" />,
   },
   {
     label: '設定',

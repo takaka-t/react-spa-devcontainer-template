@@ -19,7 +19,13 @@ function readInitialMode(): PaletteMode {
     return 'light'
   }
 
-  const storedMode = window.localStorage.getItem(STORAGE_KEY)
+  let storedMode: string | null
+
+  try {
+    storedMode = window.localStorage.getItem(STORAGE_KEY)
+  } catch {
+    return 'light'
+  }
 
   if (storedMode === 'light' || storedMode === 'dark') {
     return storedMode
@@ -46,7 +52,11 @@ export function ThemeModeProvider({ children }: ThemeModeProviderProps) {
 
   useEffect(() => {
     // テーマ選択を localStorage に保存して、リロード後も同じ見た目を保ちます。
-    window.localStorage.setItem(STORAGE_KEY, mode)
+    try {
+      window.localStorage.setItem(STORAGE_KEY, mode)
+    } catch {
+      // 保存に失敗しても、現在の画面内では React state の mode が効いているため操作は継続できます。
+    }
   }, [mode])
 
   return (
