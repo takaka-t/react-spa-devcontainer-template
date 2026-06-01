@@ -1,8 +1,6 @@
 import { Outlet, NavLink, useNavigation } from 'react-router'
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined'
-import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
-import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined'
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined'
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
@@ -10,13 +8,10 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Chip from '@mui/material/Chip'
 import Divider from '@mui/material/Divider'
-import IconButton from '@mui/material/IconButton'
 import LinearProgress from '@mui/material/LinearProgress'
 import Stack from '@mui/material/Stack'
-import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import type { ReactNode } from 'react'
-import { useThemeMode } from '../app/theme/useThemeMode.ts'
 
 type NavItem = {
   label: string
@@ -83,7 +78,6 @@ function AppNavLink({ label, to, end, icon }: NavItem) {
 }
 
 export function AppLayout() {
-  const { mode, toggleMode } = useThemeMode()
   const navigation = useNavigation()
   const isRouteLoading = navigation.state === 'loading'
 
@@ -156,31 +150,9 @@ export function AppLayout() {
       </Box>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0 }}>
-        <Box
-          component="header"
-          sx={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 10,
-            display: 'flex',
-            justifyContent: 'flex-end',
-            alignItems: 'center',
-            minHeight: 64,
-            px: { xs: 2, md: 3 },
-            borderBottom: 1,
-            borderColor: 'divider',
-            bgcolor: 'background.paper',
-          }}
-        >
-          <Tooltip title={mode === 'light' ? 'ダークモードに切り替え' : 'ライトモードに切り替え'}>
-            <IconButton onClick={toggleMode} aria-label="テーマを切り替え">
-              {mode === 'light' ? <DarkModeOutlinedIcon /> : <LightModeOutlinedIcon />}
-            </IconButton>
-          </Tooltip>
-        </Box>
         {isRouteLoading && (
           // loader を使う画面遷移や検索では、React Router の navigation state で共通の loading UI を出せます。
-          <LinearProgress sx={{ position: 'sticky', top: 64, zIndex: 10 }} />
+          <LinearProgress sx={{ position: 'sticky', top: 0, zIndex: 10 }} />
         )}
 
         <Box

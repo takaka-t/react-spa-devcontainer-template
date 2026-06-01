@@ -2,22 +2,15 @@ import { useState } from 'react'
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined'
 import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
-import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import FormLabel from '@mui/material/FormLabel'
-import Radio from '@mui/material/Radio'
-import RadioGroup from '@mui/material/RadioGroup'
 import Snackbar from '@mui/material/Snackbar'
 import Stack from '@mui/material/Stack'
 import Switch from '@mui/material/Switch'
 import TextField from '@mui/material/TextField'
-import type { PaletteMode } from '@mui/material/styles'
-import { useThemeMode } from '../../app/theme/useThemeMode.ts'
 import { PageHeader } from '../../shared/components/PageHeader.tsx'
 import { Section } from '../../shared/components/Section.tsx'
 
 export function SettingsPage() {
-  const { mode, setMode } = useThemeMode()
   const [workspaceName, setWorkspaceName] = useState('CustomerHub')
   const [contactEmail, setContactEmail] = useState('ops@example.com')
   const [weeklyReportEnabled, setWeeklyReportEnabled] = useState(true)
@@ -33,7 +26,7 @@ export function SettingsPage() {
     <Stack spacing={3}>
       <PageHeader
         title="設定"
-        description="MUI のフォーム部品、テーマ切り替え、通知 UI のサンプルです。"
+        description="MUI のフォーム部品、通知設定、保存時のフィードバックを確認できます。"
         breadcrumbs={[
           { label: 'ダッシュボード', to: '/' },
           { label: '設定' },
@@ -64,21 +57,8 @@ export function SettingsPage() {
           </Stack>
         </Section>
 
-        <Section title="表示と通知">
+        <Section title="通知">
           <Stack spacing={2.5}>
-            <FormControl>
-              <FormLabel id="theme-mode-label">テーマ</FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="theme-mode-label"
-                value={mode}
-                onChange={(event) => setMode(event.target.value as PaletteMode)}
-              >
-                <FormControlLabel value="light" control={<Radio />} label="ライト" />
-                <FormControlLabel value="dark" control={<Radio />} label="ダーク" />
-              </RadioGroup>
-            </FormControl>
-
             <FormControlLabel
               control={
                 <Switch
