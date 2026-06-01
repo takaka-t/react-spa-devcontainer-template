@@ -1,7 +1,9 @@
-import { Outlet, NavLink, useNavigation } from 'react-router'
+import { Form, Outlet, NavLink, useNavigation, useRouteLoaderData } from 'react-router'
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined'
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined'
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined'
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import Box from '@mui/material/Box'
@@ -11,6 +13,7 @@ import LinearProgress from '@mui/material/LinearProgress'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import type { ReactNode } from 'react'
+import type { AuthUser } from '../app/auth/authSession.ts'
 
 type NavItem = {
   label: string
@@ -77,6 +80,7 @@ function AppNavLink({ label, to, end, icon }: NavItem) {
 }
 
 export function AppLayout() {
+  const user = useRouteLoaderData('auth') as AuthUser
   const navigation = useNavigation()
   const isRouteLoading = navigation.state === 'loading'
 
@@ -140,9 +144,28 @@ export function AppLayout() {
 
         <Box sx={{ flexGrow: 1 }} />
 
-        <Button href="https://mui.com/material-ui/getting-started/" target="_blank" rel="noreferrer">
-          MUI Docs
-        </Button>
+        <Stack spacing={1.5}>
+          <Divider />
+          <Stack direction="row" spacing={1.25} sx={{ alignItems: 'center', minWidth: 0 }}>
+            <PersonOutlineOutlinedIcon color="action" fontSize="small" />
+            <Box sx={{ minWidth: 0 }}>
+              <Typography variant="body2" sx={{ fontWeight: 700 }}>
+                {user.name}
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', wordBreak: 'break-all' }}>
+                {user.email}
+              </Typography>
+            </Box>
+          </Stack>
+          <Form method="post" action="/logout">
+            <Button type="submit" startIcon={<LogoutOutlinedIcon />} fullWidth>
+              ログアウト
+            </Button>
+          </Form>
+          <Button href="https://mui.com/material-ui/getting-started/" target="_blank" rel="noreferrer" fullWidth>
+            MUI Docs
+          </Button>
+        </Stack>
       </Box>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0 }}>

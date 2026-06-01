@@ -1,8 +1,10 @@
 import { createBrowserRouter } from 'react-router'
+import { loginAction, loginLoader, logoutAction, logoutLoader, requireAuth } from './auth/authRoutes.ts'
 import { AppLayout } from '../layouts/AppLayout.tsx'
 import { RouteErrorPage } from '../layouts/RouteErrorPage.tsx'
 import { CustomerDetailPage, loader as customerDetailLoader } from '../pages/customers/CustomerDetailPage.tsx'
 import { CustomerListPage, loader as customerListLoader } from '../pages/customers/CustomerListPage.tsx'
+import { LoginPage } from '../pages/auth/LoginPage.tsx'
 import { DashboardPage } from '../pages/dashboard/DashboardPage.tsx'
 import { NotFoundPage } from '../pages/NotFoundPage.tsx'
 import { SettingsPage } from '../pages/settings/SettingsPage.tsx'
@@ -12,7 +14,21 @@ import { VoucherSearchPage, loader as voucherSearchLoader } from '../pages/vouch
 // 画面が増えたときも、このファイルを見ることで URL、レイアウト、データ取得の関係を追いやすくなります。
 export const router = createBrowserRouter([
   {
+    path: '/login',
+    loader: loginLoader,
+    action: loginAction,
+    element: <LoginPage />,
+    errorElement: <RouteErrorPage />,
+  },
+  {
+    path: '/logout',
+    loader: logoutLoader,
+    action: logoutAction,
+  },
+  {
+    id: 'auth',
     path: '/',
+    loader: requireAuth,
     element: <AppLayout />,
     errorElement: <RouteErrorPage />,
     children: [

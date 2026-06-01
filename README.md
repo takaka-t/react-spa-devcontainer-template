@@ -23,6 +23,13 @@ React Router の `loader` は原則として対象の `Page.tsx` に同居し、
 検索条件は URL search params に持たせ、初期表示と検索結果表示は同じ loader / 検索処理 / 一覧コンポーネントで扱う。  
 画面遷移中や検索中の loading UI は `useNavigation()` を利用して共通レイアウトで表示する。
 
+## 認証実装方針
+
+ログイン画面は `AppLayout` の外に配置し、認証が必要な画面は親 route の `loader` でまとめて保護する。  
+認証チェック、ログイン、ログアウトの共通処理は `app/auth` に配置し、各 Page の loader には画面固有のデータ取得だけを書く。  
+認証ユーザー情報はメモリキャッシュし、API が 401 Unauthorized を返した場合は認証キャッシュを破棄する。  
+SPA 側の認証制御は画面表示の制御であり、実際の権限確認は API / サーバー側でも必ず行う。
+
 ## setup project
 
 VS Code でこのフォルダを開き、Dev Containers の `Reopen in Container` でコンテナに入る。
