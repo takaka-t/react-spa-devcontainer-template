@@ -6,7 +6,6 @@ import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Chip from '@mui/material/Chip'
 import Divider from '@mui/material/Divider'
 import LinearProgress from '@mui/material/LinearProgress'
 import Stack from '@mui/material/Stack'
@@ -141,12 +140,9 @@ export function AppLayout() {
 
         <Box sx={{ flexGrow: 1 }} />
 
-        <Stack spacing={1.5}>
-          <Chip label="Demo workspace" size="small" color="secondary" variant="outlined" />
-          <Button href="https://mui.com/material-ui/getting-started/" target="_blank" rel="noreferrer">
-            MUI Docs
-          </Button>
-        </Stack>
+        <Button href="https://mui.com/material-ui/getting-started/" target="_blank" rel="noreferrer">
+          MUI Docs
+        </Button>
       </Box>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0 }}>
