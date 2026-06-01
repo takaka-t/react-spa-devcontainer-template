@@ -13,6 +13,16 @@ React で SPA を構築する際のプロジェクトテンプレート。
 `sx` はCSS標準に近い指定を中心に利用し、複雑なスタイルはCSSまたは共通コンポーネントに切り出す。  
 一覧表示は `Table` / `DataGrid` を使用する。
 
+## ルーティング実装方針
+
+画面コンポーネントは `pages` 配下に配置し、`app/router.tsx` で URL と画面の対応を定義する。  
+React Router の `loader` は原則として対象の `Page.tsx` に同居し、Page と loader は 1:1 で紐づける。  
+`Page.tsx` から `loader` を export するため、ESLint の `react-refresh/only-export-components` は `loader` のみ例外として許可する。  
+認可や redirect などの共通制御は router 側に寄せ、各 Page の loader へ散らさない。  
+画面固有の処理は `Page.tsx` に置き、複数画面で使う処理は `features` / `shared` に切り出す。  
+検索条件は URL search params に持たせ、初期表示と検索結果表示は同じ loader / 検索処理 / 一覧コンポーネントで扱う。  
+画面遷移中や検索中の loading UI は `useNavigation()` を利用して共通レイアウトで表示する。
+
 ## setup project
 
 VS Code でこのフォルダを開き、Dev Containers の `Reopen in Container` でコンテナに入る。

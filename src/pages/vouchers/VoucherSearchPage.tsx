@@ -7,13 +7,13 @@ import Typography from '@mui/material/Typography'
 import { VoucherSearchForm } from '../../features/vouchers/components/VoucherSearchForm.tsx'
 import type { VoucherSearchDraft } from '../../features/vouchers/components/VoucherSearchForm.tsx'
 import { VoucherTable } from '../../features/vouchers/components/VoucherTable.tsx'
-import { voucherStatusLabels } from '../../features/vouchers/data/masters.ts'
+import { accounts, departments, suppliers, voucherStatusLabels } from '../../features/vouchers/data/masters.ts'
+import { vouchers } from '../../features/vouchers/data/vouchers.ts'
 import type { Account, Department, Supplier, Voucher, VoucherStatus } from '../../features/vouchers/types.ts'
 import { EmptyState } from '../../shared/components/EmptyState.tsx'
 import { PageHeader } from '../../shared/components/PageHeader.tsx'
 import { Section } from '../../shared/components/Section.tsx'
 import { formatCurrency } from '../../shared/utils/format.ts'
-import { vouchersLoader } from './vouchers.loader.ts'
 
 type VoucherLoaderData = {
   vouchers: Voucher[]
@@ -32,6 +32,17 @@ const emptyDraft: VoucherSearchDraft = {
   status: 'all',
   amountMin: '',
   amountMax: '',
+}
+
+export function loader() {
+  // 伝票一覧と検索に必要なマスタを同時に返します。
+  // 実アプリでは、画面初期表示に必要な API をまとめて呼び出す場所として使えます。
+  return {
+    vouchers,
+    suppliers,
+    departments,
+    accounts,
+  }
 }
 
 function isVoucherStatus(value: string | null): value is VoucherStatus {
@@ -120,7 +131,7 @@ function formatAmountFilter(value: string) {
 }
 
 export function VoucherSearchPage() {
-  const loaderData = useLoaderData<typeof vouchersLoader>() as VoucherLoaderData
+  const loaderData = useLoaderData<typeof loader>() as VoucherLoaderData
   const [searchParams, setSearchParams] = useSearchParams()
   const searchKey = searchParams.toString()
   const appliedDraft = useMemo(() => readDraftFromSearchParams(searchParams), [searchParams])

@@ -5,11 +5,17 @@ import Stack from '@mui/material/Stack'
 import { CustomerFilters } from '../../features/customers/components/CustomerFilters.tsx'
 import type { CustomerStatusFilter } from '../../features/customers/components/CustomerFilters.tsx'
 import { CustomerTable } from '../../features/customers/components/CustomerTable.tsx'
+import { customers } from '../../features/customers/data/customers.ts'
 import type { Customer } from '../../features/customers/types.ts'
 import { EmptyState } from '../../shared/components/EmptyState.tsx'
 import { PageHeader } from '../../shared/components/PageHeader.tsx'
 import { Section } from '../../shared/components/Section.tsx'
-import { customersLoader } from './customers.loader.ts'
+
+export function loader() {
+  // loader は画面表示前に必要なデータを準備するための React Router の仕組みです。
+  // Page と 1:1 で紐づく処理なので、この Page ファイルに同居させています。
+  return customers
+}
 
 function normalizeStatusFilter(value: string | null): CustomerStatusFilter {
   if (value === 'active' || value === 'trial' || value === 'atRisk' || value === 'paused') {
@@ -20,7 +26,7 @@ function normalizeStatusFilter(value: string | null): CustomerStatusFilter {
 }
 
 export function CustomerListPage() {
-  const customers = useLoaderData<typeof customersLoader>() as Customer[]
+  const customers = useLoaderData<typeof loader>() as Customer[]
   const [searchParams, setSearchParams] = useSearchParams()
   const query = searchParams.get('q') ?? ''
   const status = normalizeStatusFilter(searchParams.get('status'))

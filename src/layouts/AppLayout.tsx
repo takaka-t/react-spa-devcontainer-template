@@ -1,4 +1,4 @@
-import { Outlet, NavLink } from 'react-router'
+import { Outlet, NavLink, useNavigation } from 'react-router'
 import AnalyticsOutlinedIcon from '@mui/icons-material/AnalyticsOutlined'
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined'
@@ -11,6 +11,7 @@ import Button from '@mui/material/Button'
 import Chip from '@mui/material/Chip'
 import Divider from '@mui/material/Divider'
 import IconButton from '@mui/material/IconButton'
+import LinearProgress from '@mui/material/LinearProgress'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
@@ -83,6 +84,8 @@ function AppNavLink({ label, to, end, icon }: NavItem) {
 
 export function AppLayout() {
   const { mode, toggleMode } = useThemeMode()
+  const navigation = useNavigation()
+  const isRouteLoading = navigation.state === 'loading'
 
   return (
     // 画面全体の大枠は Box と Stack で構成しています。
@@ -175,6 +178,10 @@ export function AppLayout() {
             </IconButton>
           </Tooltip>
         </Box>
+        {isRouteLoading && (
+          // loader を使う画面遷移や検索では、React Router の navigation state で共通の loading UI を出せます。
+          <LinearProgress sx={{ position: 'sticky', top: 64, zIndex: 10 }} />
+        )}
 
         <Box
           component="main"

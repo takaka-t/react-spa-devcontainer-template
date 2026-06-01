@@ -1,4 +1,5 @@
 import { useLoaderData, useNavigate } from 'react-router'
+import type { LoaderFunctionArgs } from 'react-router'
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined'
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
 import Button from '@mui/material/Button'
@@ -7,14 +8,30 @@ import LinearProgress from '@mui/material/LinearProgress'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { CustomerStatusChip } from '../../features/customers/components/CustomerStatusChip.tsx'
+import { getCustomerById } from '../../features/customers/data/customers.ts'
 import type { Customer } from '../../features/customers/types.ts'
 import { PageHeader } from '../../shared/components/PageHeader.tsx'
 import { Section } from '../../shared/components/Section.tsx'
 import { formatCurrency, formatDate } from '../../shared/utils/format.ts'
-import { customerDetailLoader } from './customers.loader.ts'
+
+export function loader({ params }: LoaderFunctionArgs) {
+  const customerId = params.customerId ?? ''
+  const customer = getCustomerById(customerId)
+
+  if (!customer) {
+    // loader で Response を throw すると、対応する errorElement に処理を渡せます。
+    // 「存在しない ID」のような想定済みエラーも、画面側の分岐で散らさず扱えます。
+    throw new Response('Customer not found', {
+      status: 404,
+      statusText: '顧客が見つかりません',
+    })
+  }
+
+  return customer
+}
 
 export function CustomerDetailPage() {
-  const customer = useLoaderData<typeof customerDetailLoader>() as Customer
+  const customer = useLoaderData<typeof loader>() as Customer
   const navigate = useNavigate()
 
   return (
